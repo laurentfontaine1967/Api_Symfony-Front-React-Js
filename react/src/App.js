@@ -7,6 +7,8 @@ import { UserProvider } from "./contexts/UserContext";
 import LoginForm from "./component/LoginComponent";
 import AdminRoute from "./component/AdminRoute";
 import Admin from "./component/Admin";
+import LogOut from "./component/Logout";
+import MyInfo from "./component/MyInfo";
 
 function App() {
   return (
@@ -42,6 +44,8 @@ function App() {
             <Route exact path="/register" element={<RegisterForm />} />
             <Route exact path="/login" element={<LoginForm />} />
             <Route path="/admin" element={<AdminRoute element={<Admin />} />} />
+            <Route exact path="/logout" element={<LogOut />} />
+            <Route exact path="/MyInfo" element={<MyInfo />} />
           </Routes>
         </BrowserRouter>
       </UserProvider>

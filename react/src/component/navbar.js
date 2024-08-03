@@ -38,17 +38,28 @@ function Navb() {
 
             {user ? (
               <li class="nav-item">
-                <Link class="nav-link" to="/login">
+                <Link class="nav-link" to="/#">
                   Bonjour, {user.pseudo}!
                 </Link>
               </li>
+
             ) : (
               <li class="nav-item">
                 <Link class="nav-link" to="/login">
                   Login
                 </Link>
+                
               </li>
             )}
+
+{user ? (
+              <li class="nav-item">
+                <Link class="nav-link" to="/logout">
+                  Logout
+                </Link>
+              </li>
+            ) : null}
+            
             {isAdmin() && (
               <li class="nav-item">
                 <Link class="nav-link" to="/admin">
