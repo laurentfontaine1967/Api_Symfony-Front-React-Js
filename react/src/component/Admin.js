@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -9,12 +10,22 @@ const Admin = () => {
   useEffect(() => {
     const fetchRegistered = async () => {
       try {
-        const response = await fetch("https://127.0.0.1:8000/api/users");
-        const data = await response.json();
-        console.log(data); // Vérifiez les données reçues de l'API
-        setRegistered(data);
+        const response = await axios.get("https://localhost:8000/api/users");
+        const data = response.data;
+        console.log(data);
+
+        // Vérifier que 'data['hydra:member']' est défini et est un tableau
+        if (Array.isArray(data['hydra:member'])) {
+          setRegistered(data['hydra:member']);
+          //const role =registereddata['hydra:member'][0].roles
+         //console.log(role);
+
+
+        } else {
+          throw new Error("Données inattendues");
+        }
       } catch (error) {
-        console.error("Error fetching events:", error);
+        console.error("Erreur lors de la récupération des utilisateurs:", error);
         toast.error("Pas de connexion à la BDD");
       }
     };
@@ -22,22 +33,21 @@ const Admin = () => {
     fetchRegistered();
   }, []);
 
-  //delete User
-  function delUser(id) {
-    fetch(`http://localhost:3001/api/users/${id}`, {
-      method: "DELETE",
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Success:", data);
-        toast.success("Utilisateur supprimé avec succès");
-        window.location.reload();
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        toast.error("Utilisateur non supprimé");
-      });
-  }
+  const delUser = async (id) => {
+    try {
+      const response = await axios.delete(`https://localhost:8000/api/users/${id}`);
+      if (response.status !== 204) {
+        throw new Error("Erreur lors de la suppression");
+      }
+      toast.success("Utilisateur supprimé avec succès");
+      setRegistered((prevRegistered) =>
+        prevRegistered.filter((user) => user.id !== id)
+      );
+    } catch (error) {
+      console.error("Erreur lors de la suppression de l'utilisateur:", error);
+      toast.error("Utilisateur non supprimé");
+    }
+  };
 
   return (
     <div className="container">
@@ -65,10 +75,10 @@ const Admin = () => {
             <tbody>
               {registered.map((register) => (
                 <tr key={register.id}>
-                  <td>{register.pseudo}</td>
+                  <td>{register.pseudo || "N/A"}</td>
                   <td>{register.email}</td>
-                  <td>{register.role}</td>
-                  <td>{register.IsVerified}</td>
+                   <td>{register.roles ? register.roles.join(", ") : "N/A"}</td> 
+                  <td>{register.IsVerified ? "Oui" : "Non"}</td>
                   <td>
                     <button
                       onClick={() => delUser(register.id)}
@@ -86,4 +96,5 @@ const Admin = () => {
     </div>
   );
 };
+
 export default Admin;
