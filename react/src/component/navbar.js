@@ -5,13 +5,13 @@ import React, { useContext } from "react";
 function Navb() {
   const { user, isAdmin } = useContext(UserContext);
   return (
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <div class="container-fluid">
-        <Link class="navbar-brand" to="#">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div className="container-fluid">
+        <Link className="navbar-brand" to="#">
           Navbar
         </Link>
         <button
-          class="navbar-toggler"
+          className="navbar-toggler"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarNav"
@@ -19,57 +19,60 @@ function Navb() {
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <span class="navbar-toggler-icon"></span>
+          <span className="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <Link class="nav-link active" aria-current="page" to="#">
+        <div className="collapse navbar-collapse" id="navbarNav">
+          <ul className="navbar-nav">
+            <li className="nav-item">
+              <Link className="nav-link active" aria-current="page" to="/">
                 Home
               </Link>
             </li>
             {!user ? (
-              <li class="nav-item">
-                <Link class="nav-link" to="/register">
+              <li className="nav-item">
+                <Link className="nav-link" to="/register">
                   Register
                 </Link>
               </li>
             ) : null}
 
             {user ? (
-              <li class="nav-item">
-                <Link class="nav-link" to="/#">
+              <li className="nav-item">
+                <Link className="nav-link" to="#">
                   Bonjour, {user.pseudo}!
                 </Link>
               </li>
-
             ) : (
-              <li class="nav-item">
-                <Link class="nav-link" to="/login">
+              <li className="nav-item">
+                <Link className="nav-link" to="/login">
                   Login
                 </Link>
-                
               </li>
             )}
 
-{user ? (
-              <li class="nav-item">
-                <Link class="nav-link" to="/logout">
+            {user ? (
+              <li className="nav-item">
+                <Link className="nav-link" to="/MyInfo">
+                  Mes informations
+                </Link>
+              </li>
+            ) : null}
+
+            {user ? (
+              <li className="nav-item">
+                <Link className="nav-link" to="/logout">
                   Logout
                 </Link>
               </li>
             ) : null}
-            
+
             {isAdmin() && (
-              <li class="nav-item">
-                <Link class="nav-link" to="/admin">
+              <li className="nav-item">
+                <Link className="nav-link" to="/admin">
                   Admin
                 </Link>
               </li>
             )}
-            {/* <li class="nav-item">
-              <a class="nav-link disabled">Disabled</a>
-            </li> */}
           </ul>
         </div>
       </div>

@@ -55,7 +55,7 @@ const LoginForm = () => {
 
       .catch((error) => {
         // console.error("Erreur lors de la connexion:", error);
-        toast.error("Erreur lors de la connexion");
+        toast.error("Mot de passe ou Email incorrect");
       });
   };
 

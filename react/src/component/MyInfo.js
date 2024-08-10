@@ -43,38 +43,41 @@ const MyInfo = () => {
 
 
   return (
-    <div className="container mt-5">
-      <ToastContainer />
-      <h1 className="mb-5">
-        Mes Informations
-      </h1>
-      <div className="form-group">
-        <label  className="mt-5">
-          Email:
-        </label>
-        <p  className="mt-2">
-          {userInfo.email}
-        </p>
-      </div>
+    
+<div className="container my-5 p-4 rounded shadow-sm bg-light">
+  <ToastContainer />
+  <h1 className="mb-4 text-center display-4 font-weight-bold text-primary">
+    Mes Informations
+  </h1>
+  
+  <div className="form-group">
+    <label className="font-weight-bold text-muted">
+      Email:
+    </label>
+    <p className="form-control bg-white text-dark border-0">
+      {userInfo.email}
+    </p>
+  </div>
 
-      <div className="form-group">
-        <label  className="mt-5">
-          Role:
-        </label>
-        <p  className="mt-2">
-          {userInfo.roles.join(", ")}
-        </p>
-      </div>
+  <div className="form-group">
+    <label className="font-weight-bold text-muted">
+      Rôle:
+    </label>
+    <p className="form-control bg-white text-dark border-0">
+      {userInfo.roles.join(", ")}
+    </p>
+  </div>
 
+  <div className="form-group text-center mt-4">
+    <a href="/change-password" className="btn btn-primary btn-lg">
+      Changer mon mot de passe
+    </a>
+  </div>
 
-      <div className="form-group">
-        <a href="/change-password" className=" btn btn-info mt-5">
-          Changer mon mot de passe
-        </a>
-      </div>
+  {/* Ajoutez d'autres champs selon vos besoins */}
+</div>
 
-      {/* Ajoutez d'autres champs selon vos besoins */}
-    </div>
+    
   );
 };
 
